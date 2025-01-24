@@ -1,7 +1,7 @@
-name: testproject
+name: Deployment
 on: push
 jobs:
-    secondjob:
+    test:
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -12,3 +12,16 @@ jobs:
                 node-version: 18
             - run: npm ci
             - run: npm test
+    deployment:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v4
+            - name: Install node
+              uses: actions/setup-node@v4
+              with:
+                node-version: 18
+            - run: npm ci
+            - run: npm test
+            - name: Build Project
+              run: echo "deploying"
