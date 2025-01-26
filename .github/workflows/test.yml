@@ -12,16 +12,20 @@ jobs:
                 node-version: 18
             - run: npm ci
             - run: npm test
+            - run: npm run lint
+    build:
+      needs: test
+      runs-on: ubuntu-latest
+      steps:
+        - name: Get code
+          uses: actions/checkout@v3
+        - name: Install dependencies
+          run: npm ci
+        - name: Build website
+          run: npm run build                
     deployment:
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout
-              uses: actions/checkout@v4
-            - name: Install node
-              uses: actions/setup-node@v4
-              with:
-                node-version: 18
-            - run: npm ci
-            - run: npm test
-            - name: Build Project
-              run: echo "deploying"
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+        - name: deploying
+          run: echo "deploying"
