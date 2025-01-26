@@ -30,7 +30,7 @@ jobs:
         with:
           name: myartifact
           path:
-            dist
+            distfile
   deploy:
     needs: build
     runs-on: ubuntu-latest
